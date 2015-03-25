@@ -1,0 +1,65 @@
+<!-- рендер для нод дерева -->
+
+
+<div class="tree-node-content">
+    <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="node.editing">
+
+        <h5>Редактировать имя</h5>
+
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="nodeName">Имя папки</label>
+                <input type="text" class="form-control" placeholder="Имя" ng-model="node.name">
+            </div>
+            <button type="submit" class="btn btn-default" ng-click="changeNode(this)">Сохранить</button>
+            <button type="submit" class="btn btn-default" ng-click="cancelEditingNode(this)">Отменить</button>
+        </form>
+
+    </div>
+    <div>
+        <!--<input ng-show="!node.source" type="checkbox" ng-model="node.check" ng-style="checked" ng-change="checked=(node.check ? {color:'red'} : {color:'black'})"> -->
+
+        <input ng-show="!node.source" type="checkbox" ng-model="node.checked" ng-style="checked"
+               ng-change="chose_parent(this)">
+
+        <a ng-show="!node.source" class="btn btn-warning btn-xm" data-nodrag ng-click="nodeToggle(this)">
+            <!-- <a ng-show="!node.source" data-nodrag ng-click="nodeToggle(this)">-->
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-folder-close': collapsed, 'glyphicon-folder-open': !collapsed}"></span>
+        </a>
+        <a ng-show="node.source" class="btn btn-success btn-xm" data-nodrag ng-click="">
+            <!-- <a ng-show="node.source" data-nodrag ng-click=""> -->
+                <span class="glyphicon"
+                      ng-class="{'glyphicon-file': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+        </a>
+
+        <span ng-show="debug" ng-style="checked">id:{{ node.id }}, &nbsp name:{{ node.name }},&nbsp user:{{ node.user }},&nbsp source: {{ node.source }}</span>
+
+        <span ng-show="!debug">{{ node.name }}</span>
+
+        <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="editeNode(this)">
+            <span class="glyphicon glyphicon-pencil"></span>
+        </a>
+
+        <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="removeNodes(this)"
+           style="margin-right: 8px;">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
+
+        <a ng-show="!node.source" class="pull-right btn btn-success btn-xs" data-nodrag
+           ng-click="newNode(type='sub_folder', this)"
+           style="margin-right: 8px;">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
+    </div>
+</div>
+
+<div>
+    <ol ui-tree-nodes="" ng-model="node.children" ng-class="{hidden: collapsed}">
+        <li ng-repeat="node in node.children" ui-tree-node data-collapsed="true"
+            ng-include="'/static/angular-bookmarks/templates/NodesRenderer.html'">
+        </li>
+    </ol>
+</div>
+
+<!-- рендер для нод дерева -->

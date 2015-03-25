@@ -1,0 +1,82 @@
+<div class="container">
+
+    <div class="col-sm-9">
+
+        <h1 class="page-header">Добавление в закладки</h1>
+
+         <!--
+        <h3>
+           Дерево закладок
+
+        </h3>
+        -->
+
+
+        <div class="group-title angular-ui-tree-handle" data-nodrag ng-show="new_bookmark_source.id">
+
+            <h4>Редактировать имя
+            <a href="" class="btn btn-default pull-right" ng-click="collapseAll()">Свернуть</a>
+            <a href="" class="btn btn-default pull-right" ng-click="expandAll()">Развернуть</a>
+            </h4>
+
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="sourceName">Наименование</label>
+                    <input type="text" class="form-control" placeholder="Имя" ng-model="new_bookmark_source.name">
+                </div>
+                <button type="submit" class="btn btn-default" ng-click="newNode(type='source')">Сохранить</button>
+            </form>
+
+        </div>
+
+
+        <div class="group-title angular-ui-tree-handle">
+
+            <h5>Элементы</h5>
+
+            <div ui-tree="treeOptions" data-drag-enabled="true" data-max-depth="10" data-drag-delay="500" id="tree-root">
+                <ol ui-tree-nodes="" ng-model="nodes" ng-class="{hidden: collapsed}">
+                    <li ng-repeat="node in nodes" ui-tree-node data-collapsed="true" ng-include="'/static/angular-bookmarks/templates/NodesRenderer.html'">
+               <!--     <li ng-repeat="node in nodes" ui-tree-node data-collapsed="true" ng-include="'NodesRenderer.html'"></li> -->
+                </ol>
+            </div>
+
+            <div>
+
+                <h5>Добавить папку</h5>
+
+                <form class="form-inline">
+                    <div class="form-group block-level">
+                        <label for="sourceName">Имя папки</label>
+                        <input type="text" class="form-control" ng-model="new_folder_name_source.name" placeholder="папка">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" ng-click="newNode(type='folder')">Добавить папку</button>
+                    </div>
+
+                    <p ng-repeat="(name, errs) in errors" class="alert alert-danger">
+                        <strong>{{ name }}</strong>: {{errs.join(', ') }}</p>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+        <!--        <button class="btn btn-primary" ng-click="ok()">OK</button> -->
+                <button class="btn btn-warning" ng-click="close()">Закрыть</button>
+            </div>
+
+            <div ng-show="debug">
+                 <!-- for debug -->
+                <h3>Data binding</h3>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <pre class="code">{{ nodes | json }}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript" src="/static/angular-bookmarks/lib/angular-ui-tree/dist/angular-ui-tree.js"></script>

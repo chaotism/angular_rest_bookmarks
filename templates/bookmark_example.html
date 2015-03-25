@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заготовка к закладкам</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" type="text/css" href="/static/angular-bookmarks/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/angular-bookmarks/lib/angular-ui-tree/dist/angular-ui-tree.min.css">
+    <link rel="stylesheet" href="/static/angular-bookmarks/css/tree.css">
+</head>
+
+
+<body ng-app="treesApp">
+<!-- живой блок -->
+<div bookmarks token="{{ csrf_token|escapejs }}" user="{{ request.user.id }}" source="4001">loading</div>
+<!-- живой блок -->
+
+
+
+<!-- scripts -->
+<!--[if IE 8]>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/3.4.0/es5-shim.min.js"></script>
+<![endif]-->
+
+<script src="/static/angular-bookmarks/lib/jquery/dist/jquery.min.js"></script>
+<script src="/static/angular-bookmarks/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/angular-bookmarks/lib/angular-1.2.26/angular.js"></script>
+<script src="/static/angular-bookmarks/lib/lodash/lodash.min.js"></script>
+<script type="text/javascript"
+        src="/static/angular-bookmarks/lib/restangular/src/restangular.js"></script>
+<script type="text/javascript" src="/static/angular-bookmarks/lib/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script type="text/javascript" src="/static/angular-bookmarks/app/trees.js"></script>
+<script src="/static/angular-bookmarks/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script>
+    // Add the CSRF Token
+    angular
+            .module('treesApp') // Not including a list of dependent modules (2nd parameter to `module`) "re-opens" the module for additional configuration
+            .config(['$httpProvider', function ($httpProvider) {
+                $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+            }]);
+</script>
+</body>
+</html>
+
